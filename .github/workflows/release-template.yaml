@@ -12,7 +12,7 @@ on:
       tagPrefix:
         required: true
         type: string
-        description: "Prefix to use for git tags. Semver number (excluding `v`) is appended for final tag. Example 'my-image-v'."
+        description: "Prefix to use for git tags. Will be joined appended with `-v0.0.0` semver. Example 'my-image'."
 jobs:
   release:
     name: Build and Publish
@@ -52,13 +52,13 @@ jobs:
               }
           }
           EOF
-          npx standard-version --tag-prefix "${{ inputs.tagPrefix }}" --path "${{ inputs.directory }}"
-          tag=$(git describe --tags --abbrev=0 | sed "s/${{ inputs.tagPrefix }}//")
+          npx standard-version --tag-prefix "${{ inputs.tagPrefix }}-v" --path "${{ inputs.directory }}"
+          tag=$(git describe --tags --abbrev=0 | sed "s/${{ inputs.tagPrefix }}-//")
           echo "::set-output name=tag::$tag"
 
       - name: Build and Push
         uses: docker/build-push-action@v2
         with:
-          context: build/base-agent
+          context: ${{ inputs.directory }}
           push: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main')}}
           tags: ${{ inputs.imageName }}:${{ steps.conventional_commit_tag.outputs.tag }}
