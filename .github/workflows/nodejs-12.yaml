@@ -15,9 +15,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - uses: ./.github/workflows/release-action
         with:
           directory: "nodejs/12"
           tagPrefix: "nodejs-12"
           imageName: "ghcr.io/liatrio-cloud/runner-images/nodejs-12"
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
