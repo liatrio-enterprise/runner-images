@@ -56,4 +56,4 @@ jobs:
         with:
           context: build/base-agent
           push: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main')}}
-          tags: ${{ inputs.imageName }}:${{ jobs.conventional_commit_tag.outputs.tag }}
+          tags: ${{ inputs.imageName }}:${{ steps.conventional_commit_tag.outputs.tag }}
