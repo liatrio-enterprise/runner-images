@@ -11,14 +11,8 @@ on:
       - "nodejs/12/**"
 jobs:
   Release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - uses: ./.github/workflows/release-action
-        with:
-          directory: "nodejs/12"
-          tagPrefix: "nodejs-12"
-          imageName: "ghcr.io/liatrio-cloud/runner-images/nodejs-12"
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+    uses: liatrio-cloud/runner-images/.github/workflows/release-template.yaml@nodejs-12
+    with:
+      directory: "nodejs/12"
+      tagPrefix: "nodejs-12"
+      imageName: "ghcr.io/liatrio-cloud/runner-images/nodejs-12"
