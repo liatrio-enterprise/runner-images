@@ -1,0 +1,59 @@
+on:
+  workflow_call:
+    inputs:
+      directory:
+        required: true
+        type: string
+        description: "Path of directory from project root, containing the Dockerfile to build."
+      imageName:
+        required: true
+        type: string
+        description: "Full repository and image name to publish as. Example 'ghcr.io/my-repository/image'."
+      tagPrefix:
+        required: true
+        type: string
+        description: "Prefix to use for git tags. Semver number (excluding `v`) is appended for final tag. Example 'my-image-v'."
+jobs:
+  release:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to GHCR
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Conventional Commit Tag
+        id: conventional_commit_tag
+        run: |
+          cat <<EOF > .versionrc
+          {
+              "bumpFiles": [],
+              "packageFiles": [],
+              "skip": {
+                "commit": true,
+                "changelog": true
+              }
+          }
+          EOF
+          npx standard-version --tag-prefix "${{ inputs.tagPrefix }}" --path "${{ inputs.directory }}"
+          tag=$(git describe --tags --abrev=0 | sed "s/${{ inputs.tagPrefix }}//")
+          echo "::set-output name=tag::$tag"
+
+      - name: Build and Push
+        uses: docker/build-push-action@v2
+        with:
+          context: build/base-agent
+          push: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main')}}
+          tags: ${{ inputs.imageName }}:${{ jobs.conventional_commit_tag.outputs.tag }}

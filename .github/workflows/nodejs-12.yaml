@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "nodejs/12/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "nodejs/12/**"
+jobs:
+  Release:
+    uses: .github/workflows/release-template.yaml
+    with:
+      directory: "nodejs/12"
+      tagPrefix: "nodejs-12-v"
+      imageName: "ghcr.io/liatrio-cloud/runner-images/nodejs-12"
