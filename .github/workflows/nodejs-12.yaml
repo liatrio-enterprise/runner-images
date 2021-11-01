@@ -11,7 +11,7 @@ on:
       - "nodejs/12/**"
 jobs:
   Release:
-    uses: liatrio-cloud/runner-images/.github/workflows/release-template.yaml@nodejs-12
+    uses: ${{ github.repository }}/.github/workflows/release-template.yaml@${{ github.sha }}
     with:
       directory: "nodejs/12"
       tagPrefix: "nodejs-12"
