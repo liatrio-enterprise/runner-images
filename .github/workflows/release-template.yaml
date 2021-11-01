@@ -62,3 +62,7 @@ jobs:
           context: ${{ inputs.directory }}
           push: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main')}}
           tags: ${{ inputs.imageName }}:${{ steps.conventional_commit_tag.outputs.tag }}
+
+      - name: Push Git Tag
+        if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main')}}
+        run: git push --tags
