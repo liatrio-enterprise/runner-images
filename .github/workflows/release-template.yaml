@@ -53,7 +53,7 @@ jobs:
           }
           EOF
           npx standard-version --tag-prefix "${{ inputs.tagPrefix }}" --path "${{ inputs.directory }}"
-          tag=$(git describe --tags --abrev=0 | sed "s/${{ inputs.tagPrefix }}//")
+          tag=$(git describe --tags --abbrev=0 | sed "s/${{ inputs.tagPrefix }}//")
           echo "::set-output name=tag::$tag"
 
       - name: Build and Push
