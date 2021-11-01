@@ -11,7 +11,7 @@ on:
       - "nodejs/12/**"
 jobs:
   Release:
-    uses: ./.github/workflows/release-template.yaml
+    uses: ./release-template.yaml
     with:
       directory: "nodejs/12"
       tagPrefix: "nodejs-12"
