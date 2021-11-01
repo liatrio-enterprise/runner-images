@@ -11,6 +11,7 @@ on:
       - "nodejs/12/**"
 jobs:
   Release:
+    runs-on: ubuntu-latest
     steps:
       - actions/checkout@v2
       - uses: ./.github/workflows/release-action

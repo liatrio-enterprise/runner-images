@@ -15,7 +15,6 @@ inputs:
     description: "Prefix to use for git tags. Will be joined appended with `-v0.0.0` semver. Example 'my-image'."
 runs:
   using: "composite"
-  runs-on: ubuntu-latest
   steps:
     - name: Checkout
       uses: actions/checkout@v2
