@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "terraform/1.0/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "terraform/1.0/**"
+jobs:
+  Release:
+    uses: liatrio-cloud/runner-images/.github/workflows/release-template.yaml@main
+    with:
+      directory: "terraform/1.0"
+      tagPrefix: "terraform-1.0"
+      imageName: "ghcr.io/liatrio-cloud/runner-images/terraform-1.0"
