@@ -11,7 +11,7 @@ on:
     paths:
       - "nodejs/12/**"
 jobs:
-  Release:
+  Release: # Use reusable workflow
     uses: liatrio-cloud/github-workflows/.github/workflows/docker-build-conventional.yml@docker-build
     with:
       directory: "nodejs/12"
