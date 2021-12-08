@@ -14,6 +14,6 @@ jobs:
   Release:
     uses: liatrio-cloud/runner-images/.github/workflows/release-template.yaml@main
     with:
-      directory: "nodejs/12"
+      # directory: "nodejs/12"
       tagPrefix: "nodejs-12"
       imageName: "ghcr.io/liatrio-cloud/runner-images/nodejs-12"
