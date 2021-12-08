@@ -10,8 +10,8 @@ on:
     paths:
       - "nodejs/12/**"
 jobs:
-  Release:
-    uses: liatrio-cloud/runner-images/.github/workflows/release-template.yaml@main
+  Release: 
+    uses: liatrio-cloud/github-workflows/.github/workflows/docker-build-conventional.yml@main
     with:
       directory: "nodejs/12"
       tagPrefix: "nodejs-12"
