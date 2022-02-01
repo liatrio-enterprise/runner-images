@@ -11,8 +11,8 @@ on:
       - "terraform/1.0/**"
 jobs:
   Release:
-    uses: liatrio-cloud/github-workflows/.github/workflows/docker-build-conventional.yml@main
+    uses: liatrio-enterprise/github-workflows/.github/workflows/docker-build-conventional.yml@main
     with:
       directory: "terraform/1.0"
       tagPrefix: "terraform-1.0"
-      imageName: "ghcr.io/liatrio-cloud/runner-images/terraform-1.0"
+      imageName: "ghcr.io/liatrio-enterprise/runner-images/terraform-1.0"
