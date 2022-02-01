@@ -11,7 +11,7 @@ on:
       - "nodejs/12/**"
   workflow_dispatch:
 
-name: nodejs 12 image build
+name: Node.js 12 build
 
 jobs:
   Release: 
