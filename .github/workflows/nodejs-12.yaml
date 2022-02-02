@@ -9,6 +9,10 @@ on:
       - main
     paths:
       - "nodejs/12/**"
+  workflow_dispatch:
+
+name: Node.js 12 build
+
 jobs:
   Release: 
     uses: liatrio-enterprise/github-workflows/.github/workflows/docker-build-conventional.yml@main
